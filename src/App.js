@@ -18,11 +18,15 @@ function App() {
     return newArr;
   }
 
+  const handleRoll = () => {
+    setDiceArr(generateRandomArr());
+  }
+
   return (
     <div className="main mt-5 d-flex flex-column justify-content-center">
       <h2 className="text-center pt-3">Dice Game</h2>
-        <Dice diceArr={diceArr}/>
-      <button className="btn btn-primary align-self-center">Roll</button>
+        <Dice diceArr={diceArr} handleRoll={handleRoll}/>
+      <button className="btn btn-primary align-self-center" onClick={handleRoll}>Roll</button>
     </div>
   );
 }

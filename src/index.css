@@ -24,3 +24,15 @@ code {
 .btn {
   width: 100px;
 }
+
+div.col.die {
+  padding: 0;
+}
+
+.die {
+  border: 1px solid black;
+}
+
+.row>* {
+  width: 0;
+}
