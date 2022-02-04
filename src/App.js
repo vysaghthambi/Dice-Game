@@ -19,7 +19,8 @@ function App() {
   }
 
   const handleRoll = () => {
-    setDiceArr(generateRandomArr());
+    const randomArr = generateRandomArr()
+    setDiceArr(diceArr.map((value,index) => value.isHeld ? value : randomArr[index]))
   };
 
   const handleClick = (id) => {
