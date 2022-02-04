@@ -1,9 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Dice from "./components/Dice";
 import { nanoid } from "nanoid";
 
 function App() {
-  const [diceArr, setDiceArr] = useState(generateRandomArr);
+  const [diceArr, setDiceArr] = useState(generateRandomArr());
+  const [isCompleted, setIsCompleted] = useState(false);
+
+  useEffect(() => {
+    const firstValue = diceArr[0].digit;
+    setIsCompleted(
+      diceArr.every((value) => value.isHeld && value.digit === firstValue)
+    );
+  }, [diceArr]);
 
   function generateRandomArr() {
     const newArr = [];
@@ -19,12 +27,22 @@ function App() {
   }
 
   const handleRoll = () => {
-    const randomArr = generateRandomArr()
-    setDiceArr(diceArr.map((value,index) => value.isHeld ? value : randomArr[index]))
+    if (isCompleted) {
+      setDiceArr(generateRandomArr());
+      setIsCompleted(false);
+    } else {
+      const randomArr = generateRandomArr();
+      setDiceArr(
+        diceArr.map((value, index) => (value.isHeld ? value : randomArr[index]))
+      );
+    }
   };
 
   const handleClick = (id) => {
-    setDiceArr(prevDiceArr => prevDiceArr.map(value => value.id === id ? {...value, isHeld: !value.isHeld} : value))
+    const newArr = diceArr.map((value) =>
+      value.id === id ? { ...value, isHeld: !value.isHeld } : value
+    );
+    setDiceArr(newArr);
   };
 
   return (
@@ -35,7 +53,7 @@ function App() {
         className="btn btn-primary align-self-center"
         onClick={handleRoll}
       >
-        Roll
+        {isCompleted ? "New Game" : "Roll"}
       </button>
     </div>
   );
