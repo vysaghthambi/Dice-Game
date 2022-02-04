@@ -17,14 +17,11 @@ function App() {
     }
     return newArr;
   }
-  console.log(diceArr)
 
   return (
     <div className="main mt-5 d-flex flex-column justify-content-center">
       <h2 className="text-center pt-3">Dice Game</h2>
-      <div>
-        <Dice />
-      </div>
+        <Dice diceArr={diceArr}/>
       <button className="btn btn-primary align-self-center">Roll</button>
     </div>
   );

@@ -1,7 +1,9 @@
-const Dice = () => {
-    return (
-        <h1>Dice</h1>
-    )
-}
+import Die from "./Die";
 
-export default Dice
+const Dice = ({ diceArr }) => {
+  const dieElement = diceArr.map((value) => <Die value={value} />);
+
+  return <div className="row row-cols-5 my-5 mx-2">{dieElement}</div>;
+};
+
+export default Dice;
